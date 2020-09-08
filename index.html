@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="A weather app">
+    <meta name="author" content="Audrey Njenga">
+    <!--Favicon-->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <title>SmashIt Weather</title>
+</head>
+<style>
+    #main {
+        display: grid;
+        place-items: center;
+    }
+
+    input {
+        padding: 1em;
+        border-radius: 1em;
+    }
+
+    #submit {
+        background-color: teal;
+        color: whitesmoke;
+    }
+
+    #submit:hover {
+        background-color: tomato;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <form method="POST" action="js/app.js">
+            <input class="city" type="text" placeholder="Enter location"><br><br>
+            <input id="submit" type="button" value="Submit">
+        </form>
+    </div>
+<script src="js/app.js"></script>
+</body>
+
+</html>
