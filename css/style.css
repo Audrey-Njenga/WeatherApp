@@ -112,6 +112,7 @@ div.info {
 
 .cities {
   background-color: white;
+  padding: 0.2em;
   color: black;
   border-radius: 7%;
   -webkit-border-radius: 7px;

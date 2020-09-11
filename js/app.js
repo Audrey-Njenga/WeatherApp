@@ -1,3 +1,4 @@
+import 'config.js';
 // registers service worker on window load
 if ('serviceWorker' in navigator) {
     window.addEventListener("load", () => {
@@ -22,13 +23,14 @@ let recent = document.getElementById('recent');
 let resultsDiv = document.getElementById('results');
 let errorBlock = document.getElementById('errorblock');
 let lastestSearch = Object.keys(localStorage)[0];
+let previous = document.getElementById('previous');
 let cities = [];
 cityName = lastestSearch.city;
 cityTemp = lastestSearch.temp;
 // main functionality
 // returns waether info on search
 searchButton.addEventListener('click', function () {
-    fetch('//api.openweathermap.org/data/2.5/weather?q=' + city.value + '&units=metric&appid=74f71f68c5d571f7efd42959517e6e27')
+    fetch('//api.openweathermap.org/data/2.5/weather?q=' + city.value + `&units=metric&appid=${key}`)
         .then((response) => {
             return response.json()
         }).then((data) => {
@@ -74,6 +76,7 @@ function previousSearches() {
     if (localStorage.length == 0) {
         previous.innerHTML = "No recent searches";
     } else {
+        previous.innerHTML = "";
         Object.keys(localStorage).forEach((cty) => {
             cacheCity = JSON.parse(localStorage.getItem(cty));
             let ctyName = cacheCity.city;
