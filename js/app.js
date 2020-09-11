@@ -1,4 +1,3 @@
-import 'config.js';
 // registers service worker on window load
 if ('serviceWorker' in navigator) {
     window.addEventListener("load", () => {
@@ -23,10 +22,15 @@ let recent = document.getElementById('recent');
 let resultsDiv = document.getElementById('results');
 let errorBlock = document.getElementById('errorblock');
 let lastestSearch = Object.keys(localStorage)[0];
-let previous = document.getElementById('previous');
-let cities = [];
-cityName = lastestSearch.city;
-cityTemp = lastestSearch.temp;
+let searches = document.getElementById('searches');
+let recentCity = localStorage.getItem(lastestSearch);
+recentCity = JSON.parse(recentCity);
+cityName.innerHTML = recentCity.name;
+cityTemp.innerHTML = recentCity.main.temp + "&#8451;";
+sunset.innerHTML = formatTime(recentCity.sys.sunset);
+sunrise.innerHTML = formatTime(recentCity.sys.sunrise);
+cityDesc.innerHTML = "Description: " + recentCity.weather[0].description;
+
 // main functionality
 // returns waether info on search
 searchButton.addEventListener('click', function () {
@@ -37,14 +41,14 @@ searchButton.addEventListener('click', function () {
 
             let name = data["name"];
             let temp = data["main"]["temp"];
-            let desc = data["weather"][0]["main"];
+            let desc = data.weather[0].description;
             let rise = data["sys"]["sunrise"];
             let set = data["sys"]["sunset"];
             rise = formatTime(rise);
             set = formatTime(set);
             temp = parseFloat(temp.toFixed(1)) + "&#8451;";
-            let statusCode = data["weather"][0]["id"];
-
+            let statusCode = data.weather[0].id;
+            console.log(data);
 
             cityWeather.setAttribute("data-feather", geticon(statusCode))
             cityName.innerHTML = name;
@@ -53,15 +57,16 @@ searchButton.addEventListener('click', function () {
             city.value = "";
             sunrise.innerHTML = rise;
             sunset.innerHTML = set;
-            let obj = { city: name, temp: temp };
-            localStorage.setItem(name, JSON.stringify(obj));
+            localStorage.setItem(name, JSON.stringify(data));
+
 
 
             document.getElementById("cityName").classList.add("popleft");
             document.getElementById("cityTemp").classList.add("popleft");
             document.getElementById("cityWeather").classList.add("popleft");
             feather.replace();
-
+            window.location.reload();
+            
 
 
         }).catch(err => errorBlock.innerHTML = "City does not exist. Try again");
@@ -77,18 +82,27 @@ function previousSearches() {
         previous.innerHTML = "No recent searches";
     } else {
         previous.innerHTML = "";
-        Object.keys(localStorage).forEach((cty) => {
+        Object.keys(localStorage).reverse().forEach((cty) => {
             cacheCity = JSON.parse(localStorage.getItem(cty));
-            let ctyName = cacheCity.city;
-            let ctyTemp = cacheCity.temp;
-            recent.insertAdjacentHTML("afterend", `<br><p class="cities">${ctyName} : ${ctyTemp}</p>`);
-       }        
-    )}
+            searches.insertAdjacentHTML("afterbegin", `<br><div class="cities">
+            <p>${cacheCity.name} : ${cacheCity.main.temp}&#8451</p><button class="close"><i data-feather="x" name=${cacheCity.name}></i></button>
+        </div>`);
+        }
+        )
+    }
 }
 
 
-function deleteSearch() {
-
+async function deleteSearch() {
+    document.querySelectorAll("button.close").forEach((elem) => {
+        elem.addEventListener("click", () => {           
+            let delCity = event.target.getAttribute("name");
+            localStorage.removeItem(delCity);
+            window.location.reload();
+          
+        }
+        );
+    });
 }
 function updateRecent(newCity) {
     let recents = JSON.parse(localStorage.getItem("arr"));
@@ -133,7 +147,7 @@ function geticon(weathercode) {
 }
 
 previousSearches();
-
+deleteSearch();
 //To be implemented
 // pick location from user
 // pinButton.addEventListener('click', function () {

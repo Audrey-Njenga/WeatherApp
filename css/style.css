@@ -16,6 +16,9 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
+div#searchbar{
+  text-align: center;
+}
 
 #search {
   padding: 3em;
@@ -61,7 +64,7 @@ input#city:focus,
 }
 
 #errorblock{
-  color: white;
+  color: gold;
   background-color: rgba(39, 37, 37, 0.781);
   width: fit-content;
   padding: 0.3em;
@@ -83,7 +86,7 @@ input#city:focus,
 #results {
   color: white;
   background-color: #383838a9;
-  padding: 2em;
+  padding: 0.8em 2em;
   text-align: center;
 }
 
@@ -99,9 +102,17 @@ input#city:focus,
   -moz-border-radius: 20px;
   justify-items: center;
 }
-
+#cityName{
+  font-size: large;
+}
 #cityWeather {
   color: black;
+}
+#cityDesc{
+  font-size: small;
+}
+#cityTemp{
+  font-size: x-large;
 }
 div.info {
   display: grid;
@@ -111,15 +122,35 @@ div.info {
 }
 
 .cities {
+  width: fit-content;
+  text-align: center;
+  margin-left: 25%;
+display: grid;
+grid-auto-flow: column;
+grid-template-columns: 5fr 1fr;
   background-color: white;
-  padding: 0.2em;
+  padding: 0.5em 2em;
   color: black;
+  grid-gap: 0.8em;
   border-radius: 7%;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-style: none;
 }
+.close{
+  background-color: white;
+  border-radius: 7%;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-style: none;
+}
+.close:hover{
+  color: gold;
+}
 
+.close:focus{
+  outline: none;
+}
 /* animations */
 
 #cityWeather {
@@ -182,8 +213,15 @@ div.info {
 .popleft {
   animation: 1s ease-out 0s 1 slideInFromLeft;
 }
+@media only screen and (max-width: 768px){
+  .resultcard{
+    width: 50%;
+    margin: 0 auto;
+  }
+ 
+}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
   #main {
     background-color: #383838a9;
     display: block;
