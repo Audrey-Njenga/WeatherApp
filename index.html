@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Spectral&display=swap" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <meta name="description" content="A weather app">
@@ -21,25 +22,27 @@
             <div id="searchbar">
                 <input id="city" type="text" placeholder="Enter city name" class="popup">
                 <button id="searchicon"><i data-feather="search"></i></button>
+
                 <!-- <button id="mapicon"><i data-feather="map-pin"></i></button> -->
             </div>
+            <div id="errorblock"></div>
         </div>
         <div id="results">
-            <i id="menuicon" data-feather="menu"></i>
+            <!-- <i id="menuicon" data-feather="menu"></i> -->
             <br><br>
             <h3 class="popup">Results</h3>
             <br>
             <br>
             <div class="resultcard">
                 <p id="cityName" class="popup">City Name</p><br>
-                <i id="cityWeather" data-feather="bar-chart-2"></i><br>
+                <i id="cityWeather"></i><br>
                 <p id="cityTemp">--Temp--</p><br>
                 <p id="cityDesc"></p>
                 <div class="info">
-                    <div><i data-feather="sunrise"></i>
+                    <div><i class="sun" data-feather="sunrise"></i>
                         <p id="sunrise">--</p>
                     </div>
-                    <div><i data-feather="sunset"></i>
+                    <div><i class="sunset" data-feather="sunset"></i>
                         <p id="sunset">--</p>
                     </div>
                     <!-- <div><i data-feather="wind"></i>
@@ -48,18 +51,14 @@
                 </div>
             </div>
             <br><br>
-            <h3 class="popup">Recent searches</h3>
+            <h3 id="recent" class="popup">Recent searches</h3>
             <br><br>
-            <div id="previous" class="resultcard">
-                <br>
-                <p>No recent searches</p><br>
-
-            </div>
+            
         </div>
     </div>
     <script src="js/app.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="js/animate.js"></script>
+    
     <script>feather.replace()</script>
 </body>
 
